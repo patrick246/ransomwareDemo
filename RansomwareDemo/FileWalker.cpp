@@ -30,7 +30,7 @@ void FileWalker::walkDirectory(const std::string& rootDir)
 	do
 	{
 		std::string filename = ffd.cFileName;
-		if (filename == "." || filename == "..")
+		if (filename == "." || filename == ".." || filename == "filemaster.key")
 		{
 			continue;
 		}
