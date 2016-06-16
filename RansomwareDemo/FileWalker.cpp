@@ -8,6 +8,19 @@ FileWalker::FileWalker(const std::string& rootDir, std::function<void(const std:
 {
 }
 
+void FileWalker::addExtensions(const std::vector<std::string>& extensions)
+{
+	for (const std::string& extension : extensions)
+	{
+		addExtension(extension);
+	}
+}
+
+void FileWalker::addExtension(const std::string & extension)
+{
+	extensionFilter.push_back(extension);
+}
+
 void FileWalker::start()
 {
 	walkDirectory(rootDir);
@@ -48,4 +61,20 @@ void FileWalker::walkDirectory(const std::string& rootDir)
 	{
 		throw std::runtime_error(std::string("Got unexpected error").c_str() + GetLastError());
 	}
+}
+
+bool FileWalker::matchesExtension(const std::string & filename)
+{
+	for (const std::string& extension : extensionFilter)
+	{
+		if (ends_with(filename, extension))
+			return true;
+	}
+	return false;
+}
+
+bool ends_with(std::string const & value, std::string const & ending)
+{
+	if (ending.size() > value.size()) return false;
+	return std::equal(ending.rbegin(), ending.rend(), value.rbegin());
 }
