@@ -54,6 +54,10 @@ void FileWalker::walkDirectory(const std::string& rootDir)
 			walkDirectory(std::string(rootDir + "\\" + ffd.cFileName));
 			continue;
 		}
+		else if(!matchesExtension(filename))
+		{
+			continue;
+		}
 		handler(rootDir + "\\" + ffd.cFileName);
 	} while (FindNextFileA(findHandle, &ffd) != 0);
 
@@ -77,4 +81,9 @@ bool ends_with(std::string const & value, std::string const & ending)
 {
 	if (ending.size() > value.size()) return false;
 	return std::equal(ending.rbegin(), ending.rend(), value.rbegin());
+}
+
+bool deleteFile(const std::string & filename)
+{
+	return DeleteFileA(filename.c_str());
 }

