@@ -22,5 +22,6 @@ public:
 private:
 	RansomEntry loadEntry(std::uint64_t clientId);
 	void saveEntry(RansomEntry& ransomEntry);
+	void refreshPaymentStatus(RansomEntry& ransomEntry);
 };
 

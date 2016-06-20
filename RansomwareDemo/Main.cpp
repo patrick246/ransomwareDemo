@@ -88,7 +88,7 @@ int main(int argc, char* argv[])
 		}
 		catch (PaymentException&)
 		{
-			std::cout << "You haven't paid for your data yet";
+			std::cout << "You haven't paid for your data yet\n";
 		}
 		catch (std::exception& e)
 		{

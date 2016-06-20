@@ -11,12 +11,14 @@
 #include "Commands.h"
 #include "PaymentException.h"
 
+const std::string ip = "192.168.56.1";
+
 std::pair<std::uint64_t, PublicKey> getPublicKey(CryptoPP::AutoSeededRandomPool& rng)
 {
 	using namespace asio::ip;
 	asio::io_service io_service;
 	tcp::resolver resolver(io_service);
-	tcp::resolver::query query("10.0.0.13", "1337");
+	tcp::resolver::query query(ip, "1337");
 	tcp::resolver::iterator endpointIt = resolver.resolve(query);
 
 	tcp::socket socket(io_service);
@@ -77,7 +79,7 @@ PrivateKey getPrivateKey(CryptoPP::AutoSeededRandomPool& rng, std::uint64_t clie
 	using namespace asio::ip;
 	asio::io_service io_service;
 	tcp::resolver resolver(io_service);
-	tcp::resolver::query query("10.0.0.13", "1337");
+	tcp::resolver::query query(ip, "1337");
 	tcp::resolver::iterator endpointIt = resolver.resolve(query);
 
 	asio::error_code error;

@@ -37,6 +37,10 @@ public:
 	{
 		hasPaid_ = status;
 	}
+	void refreshPaymentStatus(std::ifstream& infoFile)
+	{
+		infoFile >> hasPaid_;
+	}
 
 private:
 	std::uint64_t clientId_;

